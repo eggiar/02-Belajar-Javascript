@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="../app.css" />
+    <title>Latihan Tipe Data String</title>
+    <script src="app.js"></script>
+    <link
+      href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  </head>
+  <body>
+    <h1>Latihan Tipe Data String dll</h1>
+
+    <div class="latihan">
+      <h2>Latihan 1: Manipulasi String</h2>
+      <div class="soal">
+        ✅ Nama yang diberikan dalam format acak berhasil diubah menjadi huruf
+        kapital di awal setiap kata. <br />✅ Fungsi mengembalikan hasil dalam
+        format yang benar. <br />
+        ✅ Menggunakan metode string seperti .split(), .map(), .toLowerCase(),
+        dan .charAt(). <br />
+        📌 Contoh Input & Output:
+
+        <code>
+          formatName("eGGi aUnur rOfiq"); // Output: "Eggi Aunur Rofiq"
+          formatName("jOhn DOE"); // Output: "John Doe"
+        </code>
+      </div>
+      <div class="jawaban">
+        <pre>
+            <code class="language-js">
+function formatName(name = "") {
+  return console.log(
+    name
+      .split(" ")
+      .map(
+        (char) => char.charAt(0, 1).toUpperCase() + char.slice(1).toLowerCase()
+      )
+      .join(" ")
+  );
+}
+
+formatName("eGGi aUnur rOfiq"); // Output: "Eggi Aunur Rofiq"
+formatName("jOhn DOE"); // Output: "John Doe"
+        </code>
+        </pre>
+      </div>
+    </div>
+    <div class="latihan">
+      <h2>Latihan 2: Template Literals</h2>
+      <div class="soal">
+        ✅ Fungsi mengembalikan string sesuai format dengan template literals ()
+        ✅ Nilai variabel name, age, dan hobby muncul dengan benar dalam output.
+        📌 Contoh Input & Output:
+        <pre><code class="language-js">
+          introduce("Eggi", 25, "programming"); 
+          // Output: "Halo, nama saya Eggi. Saya berusia 25 tahun dan saya suka programming."
+        </code></pre>
+      </div>
+      <div class="jawaban">
+        <h3>Jawab</h3>
+        <pre>
+            <code class="language-js">
+
+        </code>
+        </pre>
+      </div>
+    </div>
+  </body>
+</html>

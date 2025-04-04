@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Penghitung Arah Kiblat</title>
+    <script src="kiblat.js"></script>
+    <link
+      rel="stylesheet"
+      href="/node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+     <div class="container p-5">
+      <form action="form">
+        <div class="mb-3">
+          <label for="" class="form-label">Longitude Tempat</label>
+          <input
+            type="text"
+            class="form-control"
+            name="LongitudeTempat"
+            id=""
+            aria-describedby="helpId"
+            placeholder="Contoh -7.796192"
+          />
+        </div>
+        <div class="mb-3">
+          <label for="" class="form-label">Latitude Tempat</label>
+          <input
+            type="text"
+            class="form-control"
+            name="LatitudeTempat"
+            id=""
+            aria-describedby="helpId"
+            placeholder="Contoh 112.973373"
+          />
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
+      <p></p>
+      <p class="A"></p>
+      <p class="h"></p>
+      <p class="z"></p>
+      <p class="Q"></p>
+      <p class="hasil btn btn-outline-primary"></p>
+    </div>
+
+    <!-- Javascript untuk menampilkan inputan di atas -->
+
+    <script>
+      const form = document.querySelector("form");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const data = new FormData(form);
+
+        const K = convertCoordinateToDecimal(`21°25'21"N`);
+        const k = convertCoordinateToDecimal(`39°49'34"E`);
+        const T = parseFloat(data.get("LongitudeTempat"));
+        const t = parseFloat(data.get("LatitudeTempat"));
+
+        let A = 360 - k + t;
+        if (isNaN(T) || isNaN(t)) {
+          alert("Masukkan koordinat dengan benar");
+          return;
+        } else {
+          if (A > 360) {
+            A = A - 360;
+          } else {
+            A = A;
+          }
+        }
+
+        let h = asinDeg(
+          sinDeg(T) * sinDeg(K) + cosDeg(T) * cosDeg(K) * cosDeg(A)
+        );
+        let z = acosDeg(
+          (sinDeg(K) - sinDeg(T) * sinDeg(h)) / cosDeg(T) / cosDeg(h)
+        );
+        console.log(
+          convertDecimalToCoordinate(h),
+          convertDecimalToCoordinate(z)
+        );
+
+        let Q = 360 - z;
+        //Contoh -7.796192, 112.973373
+        //console.log(K, k, T, t, convertDecimalToCoordinate(A));
+        //mengeluarkan data di html
+        const p = document.querySelector("p");
+        p.innerHTML = `Longitude Kiblat: ${K}, Latitude Kiblat: ${k}, Longitude Tempat: ${T}, Latitude Tempat: ${t}`;
+
+        const pA = document.querySelector(".A");
+        pA.innerHTML = `A: ${convertDecimalToCoordinate(A)}`;
+
+        const ph = (document.querySelector(
+          ".h"
+        ).innerHTML = `h: ${convertDecimalToCoordinate(h)}`);
+        const pz = (document.querySelector(
+          ".z"
+        ).innerHTML = `z: ${convertDecimalToCoordinate(z)}`);
+        const pQ = (document.querySelector(
+          ".Q"
+        ).innerHTML = `Q: ${convertDecimalToCoordinate(Q)}`);
+        const btn = (document.querySelector(
+          ".hasil"
+        ).innerHTML = `Kiblat: ${z}`);
+      });
+    </script>
+
+    <!-- Jquery -->
+    <!-- <script src="/node_modules/jquery/dist/jquery.min.js"></script> -->
+
+    <!-- Bootstrap Js -->
+    <script src="/node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  </body>
+</html>
